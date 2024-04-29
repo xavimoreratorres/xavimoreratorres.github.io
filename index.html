@@ -9,7 +9,7 @@
         .panel {
             width: 55%; /* Max width of 50% of the view */
             margin: auto; /* Center the panel horizontally */
-            padding: 20px;
+            padding: 10px;
             background-color: #f0f0f0;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px; /* Space between the panels */
@@ -44,12 +44,12 @@
 
         #outputText {
             text-align: center;
-            height: 120px; /* Adjust the height as needed */
+            min-height: 160px; /* Adjust the height as needed */
         }
 
         #instructionText {
             text-align: left;
-            height: 150px; /* Adjust the height as needed */
+            min-height: 120px; /* Adjust the height as needed */
         }
     
         #styleLabel, #configLabel, #instructionLabel {
@@ -67,21 +67,33 @@
     background-color: white; /* Sets the text background to white */
     margin: 10px auto; /* Centers the text and provides some spacing from the container edges */
     padding: 10px; /* Adds padding around the text for better readability */
-    width: 90%; /* Controls the width of the text container within the panel */
+    width: 95%; /* Controls the width of the text container within the panel */
     text-align: left;  /* Centers the text inside the label */
 }
     
+.button-container {
+            display: flex;
+            justify-content: left; /* Centers buttons horizontally in the container */
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+        
         button {
-    display: flex;
-    background-color: #f8f8f8; /* Light grey background */
-    border: 1px solid #ccc; /* Grey border */
-    color: #333; /* Dark grey text */
-    padding: 5px 10px; /* Padding around the text */
-    font-size: 12px; /* Smaller text size */
-    border-radius: 3px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
-    margin-bottom: 10px;
+            min-width: 80px; /* Adjusted width to better fit text */
+            text-align: center;
+            display: flex;
+            justify-content: center; /* Centers text horizontally */
+            align-items: center; /* Centers text vertically */
+            background-color: #f8f8f8;
+            border: 1px solid #ccc;
+            color: #333;
+            padding: 5px 10px;
+            font-size: 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 0 5px; /* Adds space between buttons */
+        }
 }
     </style>
     </head>
@@ -90,10 +102,13 @@
             <span id="styleLabel">Style Preview</span>
             <p id="displayText">Please adjust the sliders to see the text change.</p>
         </div>
-    
+        
         <div id="controlPanel" class="panel">
             <span id="configLabel">Style Configuration</span>
-            <button onclick="randomizeSliders()">shuffle</button> <!-- Dice Emoji -->
+            <div class="button-container">
+                <button onclick="randomizeSliders()">Shuffle</button> <!-- Dice Emoji -->
+                <button onclick="copyInstructions()">Export system instructions</button> <!-- Document Emoji -->
+            </div>
             <div class="slider-container">
                 <label for="formality">Formality</label>
                 <input type="range" id="formality" min="0" max="3" value="2" onchange="updateText()">
@@ -142,7 +157,6 @@
     
         <div id="instructionText" class="panel">
             <span id="instructionLabel">System Instruction</span>
-            <button onclick="copyInstructions()">copy</button> <!-- Document Emoji -->
             <p id="systemInstruction">Adjust the sliders to view instructions.</p>
         </div>
 
