@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chatbot Interface</title>
+    <style>
+        #chat-container {
+            width: 60%; /* Adjusted to 60% of window width */
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            margin: auto; /* Centering the chat container */
+        }
+        #message-output {
+            margin-bottom: 20px;
+        }
+        #message-input {
+            width: 100%; /* Doubled width relative to its container */
+        }
+        .ai-response-button {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            background-color: #A0A0A0; /* Initial color grey */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .active-button {
+            background-color: #007BFF; /* Active color blue */
+        }
+        #send-button {
+            padding: 5px 10px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="message-output"></div>
+        <input type="text" id="message-input" value="What are the key qualities of a PM?" readonly>
+        <button id="send-button">Send</button>
+    </div>
+
+    <script>
+        document.getElementById('send-button').onclick = function() { sendMessage(); };
+        document.getElementById('message-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const messageOutput = document.getElementById('message-output');
+            const sendButton = document.getElementById('send-button');
+            
+            // Display sent message
+            const userMessage = document.createElement('div');
+            userMessage.textContent = 'You: ' + messageInput.value;
+            messageOutput.appendChild(userMessage);
+
+            // Disable the send button after sending the message
+            sendButton.disabled = true;
+
+            // Empty the input box
+            messageInput.value = '';
+
+            // Display AI buttons
+            const responses = ['Project Manager', 'Product Manager', 'Prime Minister'];
+            const replies = [
+                'A project manager is cool!',
+                'A product manager is innovative!',
+                'A prime minister is influential!'
+            ];
+
+            responses.forEach((response, index) => {
+                const button = document.createElement('button');
+                button.textContent = response;
+                button.className = 'ai-response-button';
+                button.onclick = function() {
+                    activateButton(button);
+                    displayResponse(replies[index]);
+                };
+                messageOutput.appendChild(button);
+            });
+        }
+
+        function displayResponse(reply) {
+            const messageOutput = document.getElementById('message-output');
+            const chatbotResponse = document.createElement('div');
+            chatbotResponse.textContent = 'Chatbot: ' + reply;
+            messageOutput.appendChild(chatbotResponse);
+        }
+
+        function activateButton(selectedButton) {
+            const buttons = document.querySelectorAll('.ai-response-button');
+            buttons.forEach(button => {
+                button.classList.remove('active-button'); // Remove active from all buttons
+                button.classList.add('ai-response-button'); // Reset to default style
+            });
+            selectedButton.classList.add('active-button'); // Add active only to the selected button
+        }
+    </script>
+</body>
+</html>
