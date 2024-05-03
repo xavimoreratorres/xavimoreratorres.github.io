@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow Diagram</title>
+    <style>
+        body {
+            margin: 0;
+            line-height: normal;
+            position: relative;
+            font-family: Arial, sans-serif;
+        }
+
+        .arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid black;
+            border-top: 2px solid black;
+            position: absolute;
+            transform: rotate(45deg);
+        }
+
+        .user-input-wrapper {
+            position: absolute;
+            top: 237px;
+            left: 107px;
+            border-radius: 5px;
+            background-color: #5186ed;
+            width: 266px;
+            height: 70px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 17px 24px;
+            box-sizing: border-box;
+            color: #fff;
+        }
+
+        .arrow-between-input-and-polysemy {
+            top: 307px;
+            left: 378px;
+        }
+
+        .polysemy-llm-wrapper {
+            position: absolute;
+            top: 382px;
+            left: 107px;
+            border-radius: 5px;
+            background-color: #d9d9d9;
+            width: 266px;
+            height: 70px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 17px 24px;
+            box-sizing: border-box;
+        }
+
+        .arrow-between-polysemy-and-outputs {
+            top: 452px;
+            left: 378px;
+        }
+
+        .outputs-contextualizer-wrapper {
+            position: absolute;
+            top: 527px;
+            left: 107px;
+            border-radius: 5px;
+            background-color: #d9d9d9;
+            height: 70px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 17px 24px;
+            box-sizing: border-box;
+        }
+
+        .arrow-between-outputs-and-cta {
+            top: 596px;
+            left: 378px;
+        }
+
+        .arrow-between-outputs-and-main-llm {
+            top: 596px;
+            left: 238px;
+        }
+
+        .final-output-wrapper {
+            position: absolute;
+            top: 817px;
+            left: 227px;
+            border-radius: 5px;
+            background-color: #d9d9d9;
+            width: 266px;
+            height: 70px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 17px 24px;
+            box-sizing: border-box;
+        }
+
+        .arrow-between-main-llm-and-final-output {
+            top: 746px;
+            left: 360px;
+        }
+
+        .main-llm-wrapper {
+            position: absolute;
+            top: 672px;
+            left: calc(50% - 133px);
+            border-radius: 5px;
+            background-color: #d9d9d9;
+            width: 266px;
+            height: 70px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 17px 24px;
+            box-sizing: border-box;
+        }
+
+        .cta-wrapper {
+            position: absolute;
+            top: 527px;
+            left: 462px;
+            border-radius: 5px;
+            background-color: #d9d9d9;
+            width: 162px;
+            height: 70px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding: 17px 24px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+<div class="user-input-wrapper">
+    User Input
+</div>
+<div class="arrow arrow-between-input-and-polysemy"></div>
+<div class="polysemy-llm-wrapper">
+    Polysemy LLM
+</div>
+<div class="arrow arrow-between-polysemy-and-outputs"></div>
+<div class="outputs-contextualizer-wrapper">
+    Outputs Contextualizer
+</div>
+<div class="arrow arrow-between-outputs-and-main-llm"></div>
+<div class="main-llm-wrapper">
+    Main LLM
+</div>
+<div class="arrow arrow-between-main-llm-and-final-output"></div>
+<div class="final-output-wrapper">
+    Final Output
+</div>
+<div class="arrow arrow-between-outputs-and-cta"></div>
+<div class="cta-wrapper">
+    CTA
+</div>
+
+</body>
+</html>
