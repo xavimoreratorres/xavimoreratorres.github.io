@@ -23,17 +23,25 @@
             --incoming-chat-bg: #444654;
             --outgoing-chat-border: #343541;
             --incoming-chat-border: #444654;
+            --icon-border: #5b5e71;
+            --icon-hover-border: #3e3ee6;
+            --text-hover-color: #ffffff;
         }
 
         .light-mode {
             --text-color: #343541;
             --icon-color: #a9a9bc;
-            --icon-hover-bg: #f1f1f3;
+            --icon-color-hover: #FFFFFF;
+            --icon-hover-bg: #5186ed;
             --placeholder-color: #6c6c6c;
             --outgoing-chat-bg: #FFFFFF;
             --incoming-chat-bg: #F7F7F8;
             --outgoing-chat-border: #FFFFFF;
             --incoming-chat-border: #D9D9E3;
+            --icon-border: #3e3ee6;
+            --icon-hover-border: #3e3ee6;
+            --text-hover-color: #ffffff;
+            --border-hover-color: #FFFFFF;
         }
 
         body {
@@ -392,7 +400,7 @@
             margin: 0px 20px;
             background-color: var(--incoming-chat-bg);
             color: var(--text-color);
-            border: 1px solid var(--icon-hover-bg);
+            border: 1px solid var(--icon-border);
             border-radius: 4px;
             cursor: pointer;
             font-size: 1rem;
@@ -401,8 +409,10 @@
 
         .error-button:hover {
             background-color: var(--icon-hover-bg);
+            border: 1px solid var(--border-hover-color);
             transform: translateY(-2px);
-            border-color: var(--text-color);
+            border-color: var(--border-hover-color);
+            color: var(--text-hover-color)
         }
 
         @media screen and (max-width: 600px) {
@@ -440,8 +450,8 @@
         span.material-symbols-rounded {
           font-size: 1.25rem!important;
         }
-      }
-      
+    }
+
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts Link For Icons -->
@@ -449,6 +459,7 @@
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
 </head>
 <body>
+    <body class="light-mode">
 
     <div class="mother-frame">
         <div class="container">
@@ -467,7 +478,8 @@
                     <span id="send-btn" class="material-symbols-rounded">send</span>
                 </div>
                 <div class="typing-controls">
-                    <span id="theme-btn" class="material-symbols-rounded">light_mode</span>
+                    <span id="theme-btn" class="material-symbols-rounded">dark_mode</span>
+                    <span id="delete-btn" class="material-symbols-rounded">delete</span>
                 </div>
             </div>
         </div>
@@ -578,7 +590,20 @@
     const sendButton = document.querySelector("#send-btn");
     const chatContainer = document.querySelector(".chat-container");
     const themeButton = document.querySelector("#theme-btn");
+    const deleteButton = document.querySelector("#delete-btn");
     const frameGroups = document.querySelectorAll(".frame-parent");
+    const defaultText = `<div class="default-text">
+                                  <h1>Dynamic Co-pilot</h1>
+                                  <p>Handholding the user through polysemantics.</p>
+                                  <br> 
+                                  <br> 
+                                  <br> 
+                                  <br> 
+                                  <p>by Xavi Morera and Sofi Chacon for uxgen.ai</p>
+                              </div>`;
+
+    chatContainer.innerHTML = localStorage.getItem("all-chats") || defaultText;
+    chatContainer.scrollTo(0, chatContainer.scrollHeight); // Scroll to bottom of the chat container
 
     let userText = null;
     const API_KEY = "PASTE-YOUR-API-KEY-HERE"; // Paste your API key here
@@ -603,7 +628,7 @@
                 if (arrow) {
                     arrow.classList.add("bounce");
                 }
-                
+
             } else {
                 userInputWrapper.classList.remove("active");
                 userInputWrapper.classList.add("inactive");
@@ -643,11 +668,12 @@
             setActiveSection(2); // Trigger section 3
 
             incomingChatDiv.querySelector(".typing-animation").remove();
-            const buttonLabels = ["Product Manager", "Project Manager", "Prime Minister"];
+            const buttonLabels = ["Product Manager", "Project Manager", "Prime Minister", "Private Message"];
             const messages = {
                 "Product Manager": "These are the top 3 qualities of a <strong>Product Manager</strong>\n\n<strong>1. Strategic Thinking:</strong> A top product manager can develop a vision, set strategic goals, and create a roadmap to guide the product through its lifecycle effectively.\n\n<strong>2. Communication Skills:</strong> They excel in communication, adept at articulating the product's value and coordinating between diverse teams to ensure alignment and clarity.\n\n<strong>3. User-Centric Mindset:</strong> They have a strong focus on the user experience, continuously seeking feedback and employing data-driven approaches to improve the product based on user needs and behaviors.",
                 "Project Manager": "These are the top 3 qualities of a <strong>Project Manager</strong>\n\n<strong>1. Leadership:</strong> An effective project manager leads by example, inspiring and motivating the team towards achieving project goals.\n\n<strong>2. Communication Skills:</strong> They excel in clear communication, ensuring that all team members are informed, involved, and aligned throughout the project lifecycle.\n\n<strong>3. Problem-Solving Abilities:</strong> A top project manager is adept at identifying issues quickly and implementing effective solutions to keep the project on track.",
-                "Prime Minister": "These are the top 3 qualities of a <strong>Prime Minister</strong>\n\n<strong>1. Leadership:</strong> A prime minister must possess strong leadership skills to guide the government and the nation through various challenges and opportunities.\n\n<strong>2. Visionary Thinking:</strong> The ability to articulate a clear and strategic vision for the future is essential for a prime minister to steer national policies and development.\n\n<strong>3. Integrity:</strong> High ethical standards and integrity are crucial for a prime minister to maintain public trust and ensure transparent and accountable governance."
+                "Prime Minister": "These are the top 3 qualities of a <strong>Prime Minister</strong>\n\n<strong>1. Leadership:</strong> A prime minister must possess strong leadership skills to guide the government and the nation through various challenges and opportunities.\n\n<strong>2. Visionary Thinking:</strong> The ability to articulate a clear and strategic vision for the future is essential for a prime minister to steer national policies and development.\n\n<strong>3. Integrity:</strong> High ethical standards and integrity are crucial for a prime minister to maintain public trust and ensure transparent and accountable governance.",
+                "Private Message": "These are the top 3 qualities of a <strong>Private Message</strong>\n\n<strong>1. Confidentiality:</strong> The content is intended solely for the recipient, ensuring personal or sensitive information is not exposed to others.\n\n<strong>2. Clarity:</strong> It is clearly written and concise, effectively communicating the intended message to the recipient.\n\n<strong>3. Relevance:</strong> he message is tailored to the recipient, focusing on topics of mutual interest or necessity, making it meaningful and valuable to the receiver."
             };
 
             buttonLabels.forEach(label => {
@@ -708,7 +734,7 @@
     const showTypingAnimation = () => {
         const html = `<div class="chat-content">
                           <div class="chat-details">
-                              <img src="images/chatbot.jpg" alt="chatbot-img">
+                              <img src="images/chatbot.png" alt="chatbot-img">
                               <div class="typing-animation">
                                   <div class="typing-dot" style="--delay: 0.2s"></div>
                                   <div class="typing-dot" style="--delay: 0.3s"></div>
@@ -745,6 +771,24 @@
         setTimeout(showTypingAnimation, 500);
     };
 
+  // Add event listener for the delete button
+deleteButton.addEventListener("click", () => {
+    // Clear all chats
+    chatContainer.innerHTML = defaultText;
+
+    // Reset the chat input to the initial prompt and make it read-only
+    chatInput.value = "What are the top 3 qualities of a PM?";
+    chatInput.readOnly = true;
+    setActiveSection(0);
+
+
+    // Store the cleared state in local storage
+    localStorage.removeItem("all-chats");
+
+
+
+    });
+
     themeButton.addEventListener("click", () => {
         document.body.classList.toggle("light-mode");
         localStorage.setItem("themeColor", themeButton.innerText);
@@ -761,12 +805,25 @@
     chatInput.addEventListener("keydown", (e) => {
         if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
             e.preventDefault();
-            handleOutgoingChat();
+            sendButton.click();
         }
     });
 
     sendButton.addEventListener("click", handleOutgoingChat);
+
+    window.addEventListener("load", () => {
+        const storedThemeColor = localStorage.getItem("themeColor");
+        if (storedThemeColor) {
+            document.body.classList.toggle("light-mode", storedThemeColor === "dark_mode");
+            themeButton.innerText = storedThemeColor;
+        }
+    });
+
+    window.addEventListener("beforeunload", () => {
+        localStorage.setItem("all-chats", chatContainer.innerHTML);
+    });
 </script>
+
 
 
 
