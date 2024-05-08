@@ -417,6 +417,12 @@
             color: var(--text-hover-color)
         }
 
+        .selected-button {
+      background-color: #1a1a2e;
+      border-color: #e55865;
+      transform: translateY(0);
+    }
+
         @media screen and (max-width: 600px) {
     .right-container {
         display: none;
@@ -469,6 +475,13 @@
     span.material-symbols-rounded {
         font-size: 1.25rem !important;
     }
+    
+    .error-button.selected-button {
+        background-color: #007BFF; /* Change to your desired highlight color */
+        color: #fff;
+    }
+
+
 }
 
     </style>
@@ -605,6 +618,15 @@
 </div>
 
 <script>
+    const toggleActive = (button) => {
+        // Remove the 'active' class from all buttons
+        const allButtons = document.querySelectorAll('.user-input-wrapper');
+        allButtons.forEach(btn => btn.classList.remove('active'));
+
+        // Add the 'active' class to the clicked button
+        button.classList.add('active');
+    };
+
     const chatInput = document.querySelector("#chat-input");
     const sendButton = document.querySelector("#send-btn");
     const chatContainer = document.querySelector(".chat-container");
@@ -659,6 +681,15 @@
         });
     };
 
+    const highlightSelectedButton = (button) => {
+        // Remove `selected-button` class from all buttons
+        const allButtons = document.querySelectorAll(".error-button");
+        allButtons.forEach(btn => btn.classList.remove("selected-button"));
+
+        // Add `selected-button` class to the clicked button
+        button.classList.add("selected-button");
+    };
+
     const getChatResponse = async (incomingChatDiv) => {
         const API_URL = "https://api.openai.com/v1/completions";
         const requestOptions = {
@@ -689,10 +720,10 @@
             incomingChatDiv.querySelector(".typing-animation").remove();
             const buttonLabels = ["Product Manager", "Project Manager", "Prime Minister", "Private Message"];
             const messages = {
-                "Product Manager": "These are the top 3 qualities of a <strong>Product Manager</strong>\n\n<strong>1. Strategic Thinking:</strong> A top product manager can develop a vision, set strategic goals, and create a roadmap to guide the product through its lifecycle effectively.\n\n<strong>2. Communication Skills:</strong> They excel in communication, adept at articulating the product's value and coordinating between diverse teams to ensure alignment and clarity.\n\n<strong>3. User-Centric Mindset:</strong> They have a strong focus on the user experience, continuously seeking feedback and employing data-driven approaches to improve the product based on user needs and behaviors.",
-                "Project Manager": "These are the top 3 qualities of a <strong>Project Manager</strong>\n\n<strong>1. Leadership:</strong> An effective project manager leads by example, inspiring and motivating the team towards achieving project goals.\n\n<strong>2. Communication Skills:</strong> They excel in clear communication, ensuring that all team members are informed, involved, and aligned throughout the project lifecycle.\n\n<strong>3. Problem-Solving Abilities:</strong> A top project manager is adept at identifying issues quickly and implementing effective solutions to keep the project on track.",
-                "Prime Minister": "These are the top 3 qualities of a <strong>Prime Minister</strong>\n\n<strong>1. Leadership:</strong> A prime minister must possess strong leadership skills to guide the government and the nation through various challenges and opportunities.\n\n<strong>2. Visionary Thinking:</strong> The ability to articulate a clear and strategic vision for the future is essential for a prime minister to steer national policies and development.\n\n<strong>3. Integrity:</strong> High ethical standards and integrity are crucial for a prime minister to maintain public trust and ensure transparent and accountable governance.",
-                "Private Message": "These are the top 3 qualities of a <strong>Private Message</strong>\n\n<strong>1. Confidentiality:</strong> The content is intended solely for the recipient, ensuring personal or sensitive information is not exposed to others.\n\n<strong>2. Clarity:</strong> It is clearly written and concise, effectively communicating the intended message to the recipient.\n\n<strong>3. Relevance:</strong> he message is tailored to the recipient, focusing on topics of mutual interest or necessity, making it meaningful and valuable to the receiver."
+                "Product Manager": "Product Manager is a strategic role...",
+                "Project Manager": "Project Manager focuses on execution...",
+                "Prime Minister": "Prime Minister leads the government...",
+                "Private Message": "Private messages are confidential..."
             };
 
             buttonLabels.forEach(label => {
@@ -701,6 +732,7 @@
                 buttonElement.classList.add("error-button");
                 buttonElement.onclick = function () {
                     setActiveSection(3); // Trigger section 4
+                    highlightSelectedButton(buttonElement); // Highlight selected button
                     showTypingAndDisplayMessage(messages[label]);
                 };
                 incomingChatDiv.querySelector(".chat-details").appendChild(buttonElement);
@@ -790,22 +822,18 @@
         setTimeout(showTypingAnimation, 500);
     };
 
-  // Add event listener for the delete button
-deleteButton.addEventListener("click", () => {
-    // Clear all chats
-    chatContainer.innerHTML = defaultText;
+    // Add event listener for the delete button
+    deleteButton.addEventListener("click", () => {
+        // Clear all chats
+        chatContainer.innerHTML = defaultText;
 
-    // Reset the chat input to the initial prompt and make it read-only
-    chatInput.value = "What are the top 3 qualities of a PM?";
-    chatInput.readOnly = true;
-    setActiveSection(0);
+        // Reset the chat input to the initial prompt and make it read-only
+        chatInput.value = "What are the top 3 qualities of a PM?";
+        chatInput.readOnly = true;
+        setActiveSection(0);
 
-
-    // Store the cleared state in local storage
-    localStorage.removeItem("all-chats");
-
-
-
+        // Store the cleared state in local storage
+        localStorage.removeItem("all-chats");
     });
 
     themeButton.addEventListener("click", () => {
@@ -841,7 +869,25 @@ deleteButton.addEventListener("click", () => {
     window.addEventListener("beforeunload", () => {
         localStorage.setItem("all-chats", chatContainer.innerHTML);
     });
+
+    // Add event listeners to all buttons with class 'error-button'
+    document.querySelectorAll('.error-button').forEach(button => {
+        button.addEventListener('click', () => {
+            highlightSelectedButton(button);
+        });
+    });
+
+    // Select the error button element
+    const errorButton = document.querySelector("#error-btn");
+
+    // Add a click event listener to toggle background color
+    errorButton?.addEventListener("click", () => {
+        // Toggle the `selected` class to the button
+        errorButton.classList.toggle("selected");
+    });
 </script>
+
+
 
 
 

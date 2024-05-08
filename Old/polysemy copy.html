@@ -417,12 +417,10 @@
             color: var(--text-hover-color)
         }
 
-        .selected-button {
-            background-color: var(--icon-hover-bg);
-            border: 1px solid var(--border-hover-color);
-            border-color: var(--border-hover-color);
-            color: var(--text-hover-color);
-            transform: translateY(0);
+        .selected.button {
+      background-color: #1a1a2e;
+      border-color: #e55865;
+      transform: translateY(0);
     }
 
         @media screen and (max-width: 600px) {
@@ -431,7 +429,7 @@
     }
 
     .chat-wrapper {
-        width: 90%;
+        width: 100%;
     }
 
     .default-text h1 {
@@ -620,15 +618,14 @@
 </div>
 
 <script>
-    const toggleActive = (button) => {
-        // Remove the 'active' class from all buttons
-        const allButtons = document.querySelectorAll('.user-input-wrapper');
-        allButtons.forEach(btn => btn.classList.remove('active'));
+         const toggleActive = (button) => {
+       // Remove the 'active' class from all buttons
+       const allButtons = document.querySelectorAll('.user-input-wrapper');
+       allButtons.forEach(btn => btn.classList.remove('active'));
 
-        // Add the 'active' class to the clicked button
-        button.classList.add('active');
-    };
-
+       // Add the 'active' class to the clicked button
+       button.classList.add('active');
+   };
     const chatInput = document.querySelector("#chat-input");
     const sendButton = document.querySelector("#send-btn");
     const chatContainer = document.querySelector(".chat-container");
@@ -872,32 +869,38 @@
         localStorage.setItem("all-chats", chatContainer.innerHTML);
     });
 
+    (function () {
+    // Function for highlighting the selected button
+    const highlightSelectedButton = (button) => {
+        // Remove `selected` class from all buttons
+        const allButtons = document.querySelectorAll(".error-button");
+        allButtons.forEach(btn => btn.classList.remove("selected"));
+
+        // Add `selected` class to the clicked button
+        button.classList.add("selected");
+    };
+
     // Add event listeners to all buttons with class 'error-button'
     document.querySelectorAll('.error-button').forEach(button => {
         button.addEventListener('click', () => {
+            // Call the function to highlight the clicked button
             highlightSelectedButton(button);
         });
     });
+})();
 
-    // Select the error button element
-    const errorButton = document.querySelector("#error-btn");
+// Select the error button element
+const errorButton = document.querySelector("#error-btn");
 
-    // Add a click event listener to toggle background color
-    errorButton?.addEventListener("click", () => {
-        // Toggle the `selected` class to the button
-        errorButton.classList.toggle("selected");
-    });
+// Add a click event listener to toggle background color
+errorButton.addEventListener("click", () => {
+    // Toggle the `selected` class to the button
+    errorButton.classList.toggle("selected");
+});
+
+
+    
 </script>
-
-
-
-
-
-
-
-
-</body>
-</html>
 
 
 
