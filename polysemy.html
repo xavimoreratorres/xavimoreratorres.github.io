@@ -25,7 +25,7 @@
             --outgoing-chat-border: #343541;
             --incoming-chat-border: #444654;
             --icon-border: #5b5e71;
-            --icon-hover-border: #3e3ee6;
+            --icon-hover-border: #5186ed;
             --text-hover-color: #ffffff;
         }
 
@@ -39,8 +39,8 @@
             --incoming-chat-bg: #F7F7F8;
             --outgoing-chat-border: #FFFFFF;
             --incoming-chat-border: #D9D9E3;
-            --icon-border: #3e3ee6;
-            --icon-hover-border: #3e3ee6;
+            --icon-border: #5186ed;
+            --icon-hover-border: #5186ed;
             --text-hover-color: #ffffff;
             --border-hover-color: #FFFFFF;
         }
@@ -431,7 +431,8 @@
     }
 
     .chat-wrapper {
-        width: 90%;
+        width: 100%;
+        height: 90%;
     }
 
     .default-text h1 {
@@ -506,7 +507,7 @@
             <div class="typing-content">
                 <div class="typing-textarea">
                     <!-- Set default text and make it read-only -->
-                    <textarea id="chat-input" spellcheck="false" placeholder="Enter a prompt here" required
+                    <textarea id="chat-input" spellcheck="false" placeholder=" " required
                               readonly> What are the top 3 qualities of a PM? </textarea>
 
                     <span id="send-btn" class="material-symbols-rounded">send</span>
@@ -821,7 +822,7 @@
         chatContainer.appendChild(outgoingChatDiv);
         chatContainer.scrollTo(0, chatContainer.scrollHeight);
         setActiveSection(1); // Trigger section 2
-        setTimeout(showTypingAnimation, 500);
+        setTimeout(showTypingAnimation, 3000);
     };
 
     // Add event listener for the delete button
