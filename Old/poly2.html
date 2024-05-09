@@ -427,22 +427,8 @@
 
 /* Styling for the "Lorem Ipsum" text */
 .lorem-ipsum-text {
-    font-weight: italic; /* Adjust as needed */
+    font-weight: bold; /* Adjust as needed */
     margin-bottom: 10px; /* Adjust as necessary */
-}
-
-/* Wrapper for the Lorem Ipsum text */
-.text-wrapper {
-    margin-bottom: 10px; /* Adjust spacing between text and buttons wrapper */
-}
-
-/* Wrapper for the buttons */
-.buttons-wrapper {
-    display: flex;
-    flex-direction: row;
-
-    /*flex-wrap: wrap;
-    gap: 10px; /* Adjust spacing between buttons as needed */
 }
 
         .selected-button {
@@ -454,33 +440,6 @@
     }
 
         @media screen and (max-width: 600px) {
-
-            .text-and-buttons-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 10px; /* Adjust as necessary */
-}
-
-/* Styling for the "Lorem Ipsum" text */
-.lorem-ipsum-text {
-    font-weight: italic; /* Adjust as needed */
-    margin-bottom: 10px; /* Adjust as necessary */
-}
-
-/* Wrapper for the Lorem Ipsum text */
-.text-wrapper {
-    margin-bottom: 10px; /* Adjust spacing between text and buttons wrapper */
-}
-
-/* Wrapper for the buttons */
-.buttons-wrapper {
-    display: flex;
-    flex-direction: row;
-
-    /*flex-wrap: wrap;
-    gap: 10px; /* Adjust spacing between buttons as needed */
-}
 
         .error-button {
             padding: 5px 5px;
@@ -786,106 +745,91 @@
         };
 
         try {
-            const response = await (await fetch(API_URL, requestOptions)).json();
-            const pElement = document.createElement("p");
-            pElement.textContent = response.choices[0].text.trim();
-            
-            incomingChatDiv.querySelector(".typing-animation").remove();
-            incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
-        } catch (error) {
-            
-  // Create a wrapper for the text and buttons
-const wrapperDiv = document.createElement("div");
-wrapperDiv.classList.add("text-and-buttons-wrapper");
+    const response = await (await fetch(API_URL, requestOptions)).json();
+    const pElement = document.createElement("p");
+    pElement.textContent = response.choices[0].text.trim();
 
-// Create and add "Lorem Ipsum" text
-const textWrapper = document.createElement("div");
-textWrapper.classList.add("text-wrapper");
+    incomingChatDiv.querySelector(".typing-animation").remove();
+    incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
+} catch (error) {
+    setActiveSection(2); // Trigger section 3
 
-const loremIpsumElement = document.createElement("p");
-loremIpsumElement.textContent = "Select the term for 'PM' that you refer to";
-loremIpsumElement.classList.add("lorem-ipsum-text");
+   // Create a wrapper for the text and buttons
+   const wrapperDiv = document.createElement("div");
+    wrapperDiv.classList.add("text-and-buttons-wrapper");
 
-textWrapper.appendChild(loremIpsumElement);
-wrapperDiv.appendChild(textWrapper);
+    // Create and add "Lorem Ipsum" text
+    const loremIpsumElement = document.createElement("p");
+    loremIpsumElement.textContent = "Lorem Ipsum";
+    loremIpsumElement.classList.add("lorem-ipsum-text");
+    wrapperDiv.appendChild(loremIpsumElement);
 
-// Create a wrapper for the button labels
-const buttonsWrapper = document.createElement("div");
-buttonsWrapper.classList.add("buttons-wrapper");
+    // Button labels and corresponding messages
+    const buttonLabels = ["Product Manager", "Project Manager", "Prime Minister", "Private Message"];
+    const messages = {
+        "Product Manager": "These are the top 3 qualities of a <strong>Product Manager</strong>...",
+        "Project Manager": "These are the top 3 qualities of a <strong>Project Manager</strong>...",
+        "Prime Minister": "These are the top 3 qualities of a <strong>Prime Minister</strong>...",
+        "Private Message": "These are the top 3 qualities of a <strong>Private Message</strong>..."
+    };
 
-            setActiveSection(2); // Trigger section 3
-
-            incomingChatDiv.querySelector(".typing-animation").remove();
-            
-            const buttonLabels = ["Product Manager", "Project Manager", "Prime Minister", "Private Message"];
-            const messages = {
-                "Product Manager": "These are the top 3 qualities of a <strong>Product Manager</strong>\n\n<strong>1. Strategic Thinking:</strong> A top product manager can develop a vision, set strategic goals, and create a roadmap to guide the product through its lifecycle effectively.\n\n<strong>2. Communication Skills:</strong> They excel in communication, adept at articulating the product's value and coordinating between diverse teams to ensure alignment and clarity.\n\n<strong>3. User-Centric Mindset:</strong> They have a strong focus on the user experience, continuously seeking feedback and employing data-driven approaches to improve the product based on user needs and behaviors.",
-                "Project Manager": "These are the top 3 qualities of a <strong>Project Manager</strong>\n\n<strong>1. Leadership:</strong> An effective project manager leads by example, inspiring and motivating the team towards achieving project goals.\n\n<strong>2. Communication Skills:</strong> They excel in clear communication, ensuring that all team members are informed, involved, and aligned throughout the project lifecycle.\n\n<strong>3. Problem-Solving Abilities:</strong> A top project manager is adept at identifying issues quickly and implementing effective solutions to keep the project on track.",
-                "Prime Minister": "These are the top 3 qualities of a <strong>Prime Minister</strong>\n\n<strong>1. Leadership:</strong> A prime minister must possess strong leadership skills to guide the government and the nation through various challenges and opportunities.\n\n<strong>2. Visionary Thinking:</strong> The ability to articulate a clear and strategic vision for the future is essential for a prime minister to steer national policies and development.\n\n<strong>3. Integrity:</strong> High ethical standards and integrity are crucial for a prime minister to maintain public trust and ensure transparent and accountable governance.",
-                "Private Message": "These are the top 3 qualities of a <strong>Private Message</strong>\n\n<strong>1. Confidentiality:</strong> The content is intended solely for the recipient, ensuring personal or sensitive information is not exposed to others.\n\n<strong>2. Clarity:</strong> It is clearly written and concise, effectively communicating the intended message to the recipient.\n\n<strong>3. Relevance:</strong> The message is tailored to the recipient, focusing on topics of mutual interest or necessity, making it meaningful and valuable to the receiver."
-            };
-
-
-            buttonLabels.forEach(label => {
-                const buttonElement = document.createElement("button");
-                buttonElement.textContent = label;
-                buttonElement.classList.add("error-button");
-                buttonElement.onclick = function () {
-                    setActiveSection(3); // Trigger section 4
-                    highlightSelectedButton(buttonElement); // Highlight selected button
-                    showTypingAndDisplayMessage(messages[label]);
-                    
-                };
-                
-                buttonsWrapper.appendChild(buttonElement);
-                wrapperDiv.appendChild(buttonsWrapper);
-                
+    // Create and add each button
+    buttonLabels.forEach(label => {
+        const buttonElement = document.createElement("button");
+        buttonElement.textContent = label;
+        buttonElement.classList.add("error-button");
+        buttonElement.onclick = function () {
+            setActiveSection(3); // Trigger section 4
+            highlightSelectedButton(buttonElement); // Highlight selected button
+            showTypingAndDisplayMessage(messages[label]);
+        };
+        wrapperDiv.appendChild(buttonElement);
     });
 
     incomingChatDiv.querySelector(".chat-details").appendChild(wrapperDiv);
 
-            let lastMessageDiv = null;
+    let lastMessageDiv = null;
 
-            function showTypingAndDisplayMessage(message) {
-                const typingHtml = `<div class="chat-content">
-                            <div class="chat-details">
-                                <div class="typing-animation">
-                                    <div class="typing-dot" style="--delay: 0.2s"></div>
-                                    <div class="typing-dot" style="--delay: 0.3s"></div>
-                                    <div class="typing-dot" style="--delay: 0.4s"></div>
-                                </div>
-                            </div>
-                        </div>`;
-                const typingDiv = createChatElement(typingHtml, "incoming");
-                chatContainer.appendChild(typingDiv);
-                chatContainer.scrollTo(0, chatContainer.scrollHeight);
+    function showTypingAndDisplayMessage(message) {
+    const typingHtml = `<div class="chat-content">
+                    <div class="chat-details">
+                        <div class="typing-animation">
+                            <div class="typing-dot" style="--delay: 0.2s"></div>
+                            <div class="typing-dot" style="--delay: 0.3s"></div>
+                            <div class="typing-dot" style="--delay: 0.4s"></div>
+                        </div>
+                    </div>
+                </div>`;
+    const typingDiv = createChatElement(typingHtml, "incoming");
+    chatContainer.appendChild(typingDiv);
+    chatContainer.scrollTo(0, chatContainer.scrollHeight);
 
-                setTimeout(() => {
-                    chatContainer.removeChild(typingDiv);
-                    displayMessage(message);
-                }, 3000);
-            }
+    setTimeout(() => {
+        chatContainer.removeChild(typingDiv); // Remove typing indicator
+        displayMessage(message); // Display actual message
+    }, 3000);
+}
 
-            function displayMessage(message) {
-                if (lastMessageDiv) {
-                    chatContainer.removeChild(lastMessageDiv);
-                }
-
-                const messageDiv = document.createElement("div");
-                messageDiv.classList.add("chat", "incoming");
-                const messageContent = `<div class="chat-content">
-                                <div class="chat-details">
-                                    <p>${message}</p>
-                                </div>
-                            </div>`;
-                messageDiv.innerHTML = messageContent;
-                chatContainer.appendChild(messageDiv);
-                chatContainer.scrollTo(0, chatContainer.scrollHeight);
-
-                lastMessageDiv = messageDiv;
-                setActiveSection(4); // Trigger section 5
-            }
+    function displayMessage(message) {
+        if (lastMessageDiv) {
+            chatContainer.removeChild(lastMessageDiv);
         }
+
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("chat", "incoming");
+        const messageContent = `<div class="chat-content">
+                        <div class="chat-details">
+                            <p>${message}</p>
+                        </div>
+                    </div>`;
+        messageDiv.innerHTML = messageContent;
+        chatContainer.appendChild(messageDiv);
+        chatContainer.scrollTo(0, chatContainer.scrollHeight);
+
+        lastMessageDiv = messageDiv;
+        setActiveSection(4); // Trigger section 5
+    }
+}
     };
 
     const showTypingAnimation = () => {

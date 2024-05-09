@@ -417,33 +417,7 @@
             color: var(--text-hover-color)
         }
 
-        /* Wrapper div styling to position elements vertically */
-.text-and-buttons-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 10px; /* Adjust as necessary */
-}
-
-/* Styling for the "Lorem Ipsum" text */
-.lorem-ipsum-text {
-    font-weight: italic; /* Adjust as needed */
-    margin-bottom: 10px; /* Adjust as necessary */
-}
-
-/* Wrapper for the Lorem Ipsum text */
-.text-wrapper {
-    margin-bottom: 10px; /* Adjust spacing between text and buttons wrapper */
-}
-
-/* Wrapper for the buttons */
-.buttons-wrapper {
-    display: flex;
-    flex-direction: row;
-
-    /*flex-wrap: wrap;
-    gap: 10px; /* Adjust spacing between buttons as needed */
-}
+        
 
         .selected-button {
             background-color: var(--icon-hover-bg);
@@ -454,33 +428,6 @@
     }
 
         @media screen and (max-width: 600px) {
-
-            .text-and-buttons-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 10px; /* Adjust as necessary */
-}
-
-/* Styling for the "Lorem Ipsum" text */
-.lorem-ipsum-text {
-    font-weight: italic; /* Adjust as needed */
-    margin-bottom: 10px; /* Adjust as necessary */
-}
-
-/* Wrapper for the Lorem Ipsum text */
-.text-wrapper {
-    margin-bottom: 10px; /* Adjust spacing between text and buttons wrapper */
-}
-
-/* Wrapper for the buttons */
-.buttons-wrapper {
-    display: flex;
-    flex-direction: row;
-
-    /*flex-wrap: wrap;
-    gap: 10px; /* Adjust spacing between buttons as needed */
-}
 
         .error-button {
             padding: 5px 5px;
@@ -794,24 +741,15 @@
             incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
         } catch (error) {
             
-  // Create a wrapper for the text and buttons
-const wrapperDiv = document.createElement("div");
-wrapperDiv.classList.add("text-and-buttons-wrapper");
+         // Create a wrapper for the text and buttons
+    const wrapperDiv = document.createElement("div");
+    wrapperDiv.classList.add("text-and-buttons-wrapper");
 
-// Create and add "Lorem Ipsum" text
-const textWrapper = document.createElement("div");
-textWrapper.classList.add("text-wrapper");
-
-const loremIpsumElement = document.createElement("p");
-loremIpsumElement.textContent = "Select the term for 'PM' that you refer to";
-loremIpsumElement.classList.add("lorem-ipsum-text");
-
-textWrapper.appendChild(loremIpsumElement);
-wrapperDiv.appendChild(textWrapper);
-
-// Create a wrapper for the button labels
-const buttonsWrapper = document.createElement("div");
-buttonsWrapper.classList.add("buttons-wrapper");
+    // Create and add "Lorem Ipsum" text
+    const loremIpsumElement = document.createElement("p");
+    loremIpsumElement.textContent = "Lorem Ipsum";
+    loremIpsumElement.classList.add("lorem-ipsum-text");
+    wrapperDiv.appendChild(loremIpsumElement);
 
             setActiveSection(2); // Trigger section 3
 
@@ -825,7 +763,6 @@ buttonsWrapper.classList.add("buttons-wrapper");
                 "Private Message": "These are the top 3 qualities of a <strong>Private Message</strong>\n\n<strong>1. Confidentiality:</strong> The content is intended solely for the recipient, ensuring personal or sensitive information is not exposed to others.\n\n<strong>2. Clarity:</strong> It is clearly written and concise, effectively communicating the intended message to the recipient.\n\n<strong>3. Relevance:</strong> The message is tailored to the recipient, focusing on topics of mutual interest or necessity, making it meaningful and valuable to the receiver."
             };
 
-
             buttonLabels.forEach(label => {
                 const buttonElement = document.createElement("button");
                 buttonElement.textContent = label;
@@ -834,15 +771,9 @@ buttonsWrapper.classList.add("buttons-wrapper");
                     setActiveSection(3); // Trigger section 4
                     highlightSelectedButton(buttonElement); // Highlight selected button
                     showTypingAndDisplayMessage(messages[label]);
-                    
                 };
-                
-                buttonsWrapper.appendChild(buttonElement);
-                wrapperDiv.appendChild(buttonsWrapper);
-                
-    });
-
-    incomingChatDiv.querySelector(".chat-details").appendChild(wrapperDiv);
+                incomingChatDiv.querySelector(".chat-details").appendChild(buttonElement);
+            });
 
             let lastMessageDiv = null;
 
