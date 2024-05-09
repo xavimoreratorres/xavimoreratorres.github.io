@@ -401,7 +401,13 @@
           setTimeout(showTypingAnimation, 500);
       }
 
-      
+      deleteButton.addEventListener("click", () => {
+          // Remove the chats from local storage and call loadDataFromLocalstorage function
+          if(confirm("Are you sure you want to delete all the chats?")) {
+              localStorage.removeItem("all-chats");
+              loadDataFromLocalstorage();
+          }
+      });
 
       themeButton.addEventListener("click", () => {
           // Toggle body's class for the theme mode and save the updated theme to the local storage 
