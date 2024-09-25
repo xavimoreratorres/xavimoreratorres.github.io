@@ -578,20 +578,22 @@
 
         <!-- Typing container -->
         <div class="typing-container">
-            <div class="typing-content">
-                <div class="typing-textarea">
-                    <!-- Set default text and make it read-only -->
-                    <textarea id="chat-input" spellcheck="false" placeholder=" " required
-                              readonly> What are the top 3 qualities of a PM? </textarea>
+    <div class="typing-content">
+        <div class="typing-select">
+            <!-- Dropdown with Options -->
+            <select id="chat-input">
+                <option value="OptionA">OptionA</option>
+                <option value="OptionB">OptionB</option>
+            </select>
 
-                    <span id="send-btn" class="material-symbols-rounded">send</span>
-                </div>
-                <div class="typing-controls">
-                    <span id="theme-btn" class="material-symbols-rounded">dark_mode</span>
-                    <span id="delete-btn" class="material-symbols-rounded">delete</span>
-                </div>
-            </div>
+            <span id="send-btn" class="material-symbols-rounded">send</span>
         </div>
+        <div class="typing-controls">
+            <span id="theme-btn" class="material-symbols-rounded">dark_mode</span>
+            <span id="delete-btn" class="material-symbols-rounded">delete</span>
+        </div>
+    </div>
+</div>
     </div>
 
     <div class="right-container">
@@ -713,10 +715,10 @@
     const defaultText = `<div class="default-text">
                                   <h1>Dynamic Co-pilot</h1>
                                   <p>Handholding the user through polysemantics.</p>
-                                  <br> 
-                                  <br> 
-                                  <br> 
-                                  <br> 
+                                  <br>
+                                  <br>
+                                  <br>
+                                  <br>
                                   <p>by Xavi Morera and Sofi Chacon for uxgen.ai</p>
                               </div>`;
 
@@ -793,110 +795,117 @@
             incomingChatDiv.querySelector(".typing-animation").remove();
             incomingChatDiv.querySelector(".chat-details").appendChild(pElement);
         } catch (error) {
-            
-  // Create a wrapper for the text and buttons
-const wrapperDiv = document.createElement("div");
-wrapperDiv.classList.add("text-and-buttons-wrapper");
+            // Handle Error by Showing Buttons
 
-// Create and add "Lorem Ipsum" text
-const textWrapper = document.createElement("div");
-textWrapper.classList.add("text-wrapper");
+            const wrapperDiv = document.createElement("div");
+            wrapperDiv.classList.add("text-and-buttons-wrapper");
 
-const loremIpsumElement = document.createElement("p");
-loremIpsumElement.textContent = "Select the term for 'PM' that you refer to";
-loremIpsumElement.classList.add("lorem-ipsum-text");
+            // Create and add "Select PM" text
+            const textWrapper = document.createElement("div");
+            textWrapper.classList.add("text-wrapper");
 
-textWrapper.appendChild(loremIpsumElement);
-wrapperDiv.appendChild(textWrapper);
+            const loremIpsumElement = document.createElement("p");
+            loremIpsumElement.textContent = "Select the term for 'PM' that you refer to";
+            loremIpsumElement.classList.add("lorem-ipsum-text");
 
-// Create a wrapper for the button labels
-const buttonsWrapper = document.createElement("div");
-buttonsWrapper.classList.add("buttons-wrapper");
+            textWrapper.appendChild(loremIpsumElement);
+            wrapperDiv.appendChild(textWrapper);
 
-            setActiveSection(2); // Trigger section 3
+            // Create a wrapper for the button labels
+            const buttonsWrapper = document.createElement("div");
+            buttonsWrapper.classList.add("buttons-wrapper");
 
-            incomingChatDiv.querySelector(".typing-animation").remove();
-            
-            let buttonLabels;
-        let messages;
+            // Function to update button labels based on selected option
+            function updateButtons(selectedOption) {
+                buttonsWrapper.innerHTML = ""; // Clear existing buttons
 
-        if (selectedOption === "OptionA") {
-            buttonLabels = ["Product Manager", "Project Manager", "Prime Minister", "Private Message"];
-            messages = {
-                "Product Manager": "These are the top 3 qualities of a Product Manager...",
-                "Project Manager": "These are the top 3 qualities of a Project Manager...",
-                "Prime Minister": "These are the top 3 qualities of a Prime Minister...",
-                "Private Message": "These are the top 3 qualities of a Private Message..."
-            };
-        } else if (selectedOption === "OptionB") {
-            buttonLabels = ["Option B1", "Option B2", "Option B3"];
-            messages = {
-                "Option B1": "Description for Option B1...",
-                "Option B2": "Description for Option B2...",
-                "Option B3": "Description for Option B3..."
-            };
-        }
+                setActiveSection(2); // Trigger section 3
 
+                let buttonLabels;
+                let messages;
 
-            buttonLabels.forEach(label => {
-                const buttonElement = document.createElement("button");
-                buttonElement.textContent = label;
-                buttonElement.classList.add("error-button");
-                buttonElement.onclick = function () {
-                    setActiveSection(3); // Trigger section 4
-                    highlightSelectedButton(buttonElement); // Highlight selected button
-                    showTypingAndDisplayMessage(messages[label]);
-                    
-                };
-                
-                buttonsWrapper.appendChild(buttonElement);
-                wrapperDiv.appendChild(buttonsWrapper);
-                
-    });
-
-    incomingChatDiv.querySelector(".chat-details").appendChild(wrapperDiv);
-
-            let lastMessageDiv = null;
-
-            function showTypingAndDisplayMessage(message) {
-                const typingHtml = `<div class="chat-content">
-                            <div class="chat-details">
-                                <div class="typing-animation">
-                                    <div class="typing-dot" style="--delay: 0.2s"></div>
-                                    <div class="typing-dot" style="--delay: 0.3s"></div>
-                                    <div class="typing-dot" style="--delay: 0.4s"></div>
-                                </div>
-                            </div>
-                        </div>`;
-                const typingDiv = createChatElement(typingHtml, "incoming");
-                chatContainer.appendChild(typingDiv);
-                chatContainer.scrollTo(0, chatContainer.scrollHeight);
-
-                setTimeout(() => {
-                    chatContainer.removeChild(typingDiv);
-                    displayMessage(message);
-                }, 3000);
-            }
-
-            function displayMessage(message) {
-                if (lastMessageDiv) {
-                    chatContainer.removeChild(lastMessageDiv);
+// Update variables based on the selected option
+if (selectedOption === "OptionA") {
+    buttonLabels = ["Product Manager", "Project Manager", "Prime Minister", "Private Message"];
+    messages = {
+        "Product Manager": "These are the top 3 qualities of a Product Manager...",
+        "Project Manager": "These are the top 3 qualities of a Project Manager...",
+        "Prime Minister": "These are the top 3 qualities of a Prime Minister...",
+        "Private Message": "These are the top 3 qualities of a Private Message..."
+    };
+} else if (selectedOption === "OptionB") {
+    buttonLabels = ["Option B1", "Option B2", "Option B3"];
+    messages = {
+        "Option B1": "Description for Option B1...",
+        "Option B2": "Description for Option B2...",
+        "Option B3": "Description for Option B3..."
+    };
                 }
 
-                const messageDiv = document.createElement("div");
-                messageDiv.classList.add("chat", "incoming");
-                const messageContent = `<div class="chat-content">
-                                <div class="chat-details">
-                                    <p>${message}</p>
-                                </div>
-                            </div>`;
-                messageDiv.innerHTML = messageContent;
-                chatContainer.appendChild(messageDiv);
-                chatContainer.scrollTo(0, chatContainer.scrollHeight);
+                // Create buttons based on selected option
+                buttonLabels.forEach(label => {
+                    const buttonElement = document.createElement("button");
+                    buttonElement.textContent = label;
+                    buttonElement.classList.add("error-button");
+                    buttonElement.onclick = function () {
+                        setActiveSection(3); // Trigger section 4
+                        highlightSelectedButton(buttonElement); // Highlight selected button
+                        showTypingAndDisplayMessage(messages[label]);
+                    };
+                    buttonsWrapper.appendChild(buttonElement);
+                });
 
-                lastMessageDiv = messageDiv;
-                setActiveSection(4); // Trigger section 5
+                // Append the buttons wrapper outside the loop
+                wrapperDiv.appendChild(buttonsWrapper);
             }
+
+            // Initialize with the default value
+            const selectedOption = chatInput.options[chatInput.selectedIndex].value;
+            updateButtons(selectedOption);
+
+            incomingChatDiv.querySelector(".chat-details").appendChild(wrapperDiv);
+        }
+
+        let lastMessageDiv = null;
+
+        function showTypingAndDisplayMessage(message) {
+            const typingHtml = `<div class="chat-content">
+                        <div class="chat-details">
+                            <div class="typing-animation">
+                                <div class="typing-dot" style="--delay: 0.2s"></div>
+                                <div class="typing-dot" style="--delay: 0.3s"></div>
+                                <div class="typing-dot" style="--delay: 0.4s"></div>
+                            </div>
+                        </div>
+                    </div>`;
+            const typingDiv = createChatElement(typingHtml, "incoming");
+            chatContainer.appendChild(typingDiv);
+            chatContainer.scrollTo(0, chatContainer.scrollHeight);
+
+            setTimeout(() => {
+                chatContainer.removeChild(typingDiv); // Remove typing indicator
+                displayMessage(message); // Display actual message
+            }, 3000);
+        }
+
+        function displayMessage(message) {
+            if (lastMessageDiv) {
+                chatContainer.removeChild(lastMessageDiv);
+            }
+
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("chat", "incoming");
+            const messageContent = `<div class="chat-content">
+                        <div class="chat-details">
+                            <p>${message}</p>
+                        </div>
+                    </div>`;
+            messageDiv.innerHTML = messageContent;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTo(0, chatContainer.scrollHeight);
+
+            lastMessageDiv = messageDiv;
+            setActiveSection(4); // Trigger section 5
         }
     };
 
@@ -955,6 +964,7 @@ buttonsWrapper.classList.add("buttons-wrapper");
     });
 
     themeButton.addEventListener("click", () => {
+        // Toggle light mode and update the theme button text
         document.body.classList.toggle("light-mode");
         localStorage.setItem("themeColor", themeButton.innerText);
         themeButton.innerText = document.body.classList.contains("light-mode") ? "dark_mode" : "light_mode";
@@ -962,11 +972,13 @@ buttonsWrapper.classList.add("buttons-wrapper");
 
     const initialInputHeight = chatInput.scrollHeight;
 
+    // Adjust input field's height dynamically
     chatInput.addEventListener("input", () => {
         chatInput.style.height = `${initialInputHeight}px`;
         chatInput.style.height = `${chatInput.scrollHeight}px`;
     });
 
+    // Handle chat submission on pressing "Enter"
     chatInput.addEventListener("keydown", (e) => {
         if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
             e.preventDefault();
@@ -974,8 +986,10 @@ buttonsWrapper.classList.add("buttons-wrapper");
         }
     });
 
+    // Trigger outgoing chat on "Send" button click
     sendButton.addEventListener("click", handleOutgoingChat);
 
+    // Restore theme on page load
     window.addEventListener("load", () => {
         const storedThemeColor = localStorage.getItem("themeColor");
         if (storedThemeColor) {
@@ -984,26 +998,23 @@ buttonsWrapper.classList.add("buttons-wrapper");
         }
     });
 
+    // Save chat history before leaving the page
     window.addEventListener("beforeunload", () => {
         localStorage.setItem("all-chats", chatContainer.innerHTML);
     });
 
-    // Add event listeners to all buttons with class 'error-button'
+    // Add click event listeners for "error" buttons to highlight the selected one
     document.querySelectorAll('.error-button').forEach(button => {
         button.addEventListener('click', () => {
             highlightSelectedButton(button);
         });
     });
 
-    // Select the error button element
+    // Toggle background color for the error button
     const errorButton = document.querySelector("#error-btn");
-
-    // Add a click event listener to toggle background color
     errorButton?.addEventListener("click", () => {
-        // Toggle the `selected` class to the button
         errorButton.classList.toggle("selected");
     });
 </script>
-
 </body>
 </html>

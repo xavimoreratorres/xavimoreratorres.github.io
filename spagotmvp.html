@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Index Page</title>
+  <style>
+    /* Ensuring full view-port sections */
+    body, html {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      font-family: Arial, sans-serif;
+      height: 100%;
+    }
+
+    section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100vw;
+      text-align: center;
+      font-size: 2em;
+    }
+
+    /* Colors for each section for visual separation */
+    #book {
+      background-color: #f2f2f2;
+    }
+
+    #calendar {
+      background-color: #e0e0e0;
+    }
+
+    #shop {
+      background-color: #d3d3d3;
+    }
+
+    /* Footer styling */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 60px;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: white;
+      font-size: 2.5rem;
+    }
+
+    /* Making sure the footer is always visible */
+    footer a:hover {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Section 1: Recipe Book -->
+  <section id="book">
+    <h2>Recipe Book</h2>
+  </section>
+
+  <!-- Section 2: Meal Schedule -->
+  <section id="calendar">
+    <h2>Meal Schedule</h2>
+  </section>
+
+  <!-- Section 3: Shopping List -->
+  <section id="shop">
+    <h2>Shopping List</h2>
+  </section>
+
+  <!-- Static Footer with Buttons -->
+  <footer>
+    <a href="#book" title="Go to Recipe Book">📖</a>
+    <a href="#calendar" title="Go to Meal Schedule">🗓</a>
+    <a href="#shop" title="Go to Shopping List">🛒</a>
+  </footer>
+
+</body>
+</html>
